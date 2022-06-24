@@ -1,0 +1,33 @@
+version: '2.2'
+networks:
+  transcoding:
+    external: true
+services:
+  transcodarr:
+    image: meecles/transcodarr
+    build: .
+    container_name: transcodarr
+    restart: unless-stopped
+    mem_limit: 8192m
+    cpus: 8
+    volumes:
+      - ./in:/media/in  # Temporary file input folder. Not required
+      - ./out:/media/out # Temporary output folder. Not required
+      - /drives/localdata/media_stack/deluge/deluge/data:/media/copy:ro  # Source path. If remote, mount drive via NFS
+    env_file: values.env
+    networks:
+      - transcoding
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:latest
+    container_name: transcodarr_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017" # Not required unless in a different network or external
+    logging:
+      driver: none
+    volumes:
+      - ./mongo-volume:/data/db
+    networks:
+      - transcoding

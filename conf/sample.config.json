@@ -1,0 +1,20 @@
+{
+  "description": "Default values for application to use, can be overridden with environment variables",
+  "transcodarr_id": "default",
+  "mongo": {
+    "ip": "localhost",
+    "port": 27017
+  },
+  "plex": {
+    "url": "http://localhost:32400",
+    "api_key": "XXX"
+  },
+  "radarr": {
+    "url": "http://localhost:7878",
+    "api_key": "XXX"
+  },
+  "sonarr": {
+    "url": "http://localhost:8989",
+    "api_key": "XXX"
+  }
+}
